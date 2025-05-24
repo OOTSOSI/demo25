@@ -63,32 +63,50 @@ if [ "$HOSTNAME" = HQ-SRV.au-team.irpo ]; then
 useradd sshuser -u 1010
 
 apt-get update && apt-get install -y dnsmasq
-cat > /etc/dnsmasq.conf <<EOF
-no-resolv
-no-poll
-no-hosts
-listen-address=192.168.1.62
+cat > /var/lib/bind/etc/options.conf <<EOF
 
-server=77.88.8.8
-server=195.208.4.1
-server=195.208.5.1
-server=8.8.8.8
+options {
+    // Основные настройки
+    directory "/var/cache/bind";  # Директория для временных файлов и зон
+    pid-file "/var/run/named/named.pid";  # Файл PID (может отличаться в разных ОС)
+    statistics-file "/var/log/named/stats";  # Статистика сервера
 
-cache-size=1000
-all-servers
-no-negcache
+    // Настройки доступа
+    recursion no;                  # Отключить рекурсию (для авторитативного сервера)
+    allow-query { any; };          # Кто может делать запросы (можно ограничить, например: { 192.168.1.0/24; })
+    allow-transfer { none; };      # Кто может запрашивать трансфер зон (указать IP secondary DNS, если есть)
+    allow-recursion { none; };     # Кто может делать рекурсивные запросы (если recursion yes)
 
-host-record=hq-rtr.au-team.irpo,192.168.1.1
-host-record=hq-srv.au-team.irpo,192.168.1.62
-host-record=hq-cli.au-team.irpo,192.168.1.65
+    // Настройки кеширования и производительности
+    max-cache-size 256M;           # Лимит кеша (для кеширующего DNS)
+    max-cache-ttl 3600;            # Максимальное время хранения в кеше (в секундах)
+    cleaning-interval 60;          # Как часто чистить устаревшие записи
 
-address=/br-rtr.au-team.irpo/192.168.0.1
-address=/br-srv.au-team.irpo/192.168.0.30
+    // DNSSEC
+    dnssec-validation auto;        # Проверка DNSSEC (можно отключить: no)
+    dnssec-enable yes;             # Включить DNSSEC
 
-cname=moodle.au-team.irpo,hq-rtr.au-team.irpo
-cname=wiki.au-team.irpo,hq-rtr.au-team.irpo
-EOF
-systemctl restart dnsmasq
+    // IPv4 и IPv6
+    listen-on { any; };            # Слушать на всех IPv4-интерфейсах
+    listen-on-v6 { any; };         # Слушать на всех IPv6-интерфейсах (можно отключить, если не используется)
+
+    // Логирование и безопасность
+    version "not disclosed";       # Скрыть версию BIND
+    server-id none;                # Скрыть ID сервера
+    auth-nxdomain no;              # Отключить устаревшее поведение для NXDOMAIN
+    empty-zones-enable no;         # Запретить автоматическое создание пустых зон
+
+    // Опционально: форвардинг (если это кеширующий DNS)
+    // forwarders { 8.8.8.8; 1.1.1.1; };  # Перенаправлять запросы на эти DNS
+    // forward only;               # Только форвардинг (без самостоятельного разрешения)
+
+    // Опционально: настройки rate-limiting (защита от DDoS)
+    // rate-limit {
+    //     responses-per-second 10;
+    //     window 5;
+    // };
+};
+
 apt-get install -y chrony
 cat <<EOF > /etc/chrony.conf
 # Use public servers from the pool.ntp.org project.
