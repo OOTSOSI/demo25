@@ -107,6 +107,12 @@ options {
     // };
 };
 
+cat > /var/lib/bind/etc/rfc1912.conf >> EOF 
+
+
+
+
+
 apt-get install -y chrony
 cat <<EOF > /etc/chrony.conf
 # Use public servers from the pool.ntp.org project.
