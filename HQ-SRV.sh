@@ -1,4 +1,4 @@
-#!/bin/bash
+I#!/bin/bash
 
 hostnamectl set-hostname hq-srv.au-team.ipro
 cat <<EOF > /etc/net/ifaces/ens18/options
@@ -87,8 +87,8 @@ options {
     dnssec-enable yes;             # Включить DNSSEC
 
     // IPv4 и IPv6
-    listen-on { any; };            # Слушать на всех IPv4-интерфейсах
-    listen-on-v6 { any; };         # Слушать на всех IPv6-интерфейсах (можно отключить, если не используется)
+    listen-on { 192.168.100.2; };            # Слушать на всех IPv4-интерфейсах
+    listen-on-v6 { none; };         # Слушать на всех IPv6-интерфейсах (можно отключить, если не используется)
 
     // Логирование и безопасность
     version "not disclosed";       # Скрыть версию BIND
