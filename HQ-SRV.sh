@@ -1,4 +1,4 @@
-I#!/bin/bash
+#!/bin/bash
 
 hostnamectl set-hostname hq-srv.au-team.ipro
 cat <<EOF > /etc/net/ifaces/ens18/options
