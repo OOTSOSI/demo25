@@ -54,12 +54,11 @@ echo "Allow users = sshuser" >> "$CONFIG_FILE"
 # Разрешить аутентификацию по паролю  
 awk -i inplace '/^#PasswordAuthentication yes$/ { sub(/^#/, ""); print; next } { print }' "$CONFIG_FILE"  
 
-touch /etc/openssh/bannermotd
-cat <<EOF > /etc/openssh/bannermotd
+touch /etc/openssh/banner
+cat <<EOF > /etc/openssh/banner
 
-----------------------  
 Authorized access only  
-----------------------  
+ 
 EOF  
 
 systemctl restart sshd  
