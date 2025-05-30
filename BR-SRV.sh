@@ -49,7 +49,7 @@ awk -i inplace '/^#Port 22$/ { gsub(/22/, "2024"); $0 = "Port 2024" } { print }'
 # Уменьшить MaxAuthTries с 6 до 2  
 awk -i inplace '/^#MaxAuthTries 6$/ { gsub(/6/, "2"); $0 = "MaxAuthTries 2" } { print }' "$CONFIG_FILE"  
 
-echo "Allow users = sshuser" >> "$CONFIG_FILE" 
+echo "AllowUsers shuser" >> "$CONFIG_FILE" 
 
 # Разрешить аутентификацию по паролю  
 awk -i inplace '/^#PasswordAuthentication yes$/ { sub(/^#/, ""); print; next } { print }' "$CONFIG_FILE"  
