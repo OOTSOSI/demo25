@@ -72,8 +72,6 @@ no-hosts
 listen-address=192.168.1.62
 
 server=77.88.8.8
-server=195.208.4.1
-server=195.208.5.1
 server=8.8.8.8
 
 cache-size=1000
