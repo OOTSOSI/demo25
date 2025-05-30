@@ -80,7 +80,7 @@ no-negcache
 
 host-record=hq-rtr.au-team.irpo,192.168.1.1
 host-record=hq-srv.au-team.irpo,192.168.1.62
-host-record=hq-cli.au-team.irpo,192.168.1.65
+host-record=hq-cli.au-team.irpo,192.168.1.66
 
 address=/br-rtr.au-team.irpo/192.168.0.1
 address=/br-srv.au-team.irpo/192.168.0.30
