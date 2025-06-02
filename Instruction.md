@@ -15,12 +15,15 @@
 ДАЛЕЕ БУДЕТ ПРИМЕР ВЫПОЛНЕНИЯ ДЕМОЭКЗАМЕНА ПО ДЕЙСТВИЯМ, КОТОРЫЕ  МИНИМАЛЬНО ГРУЗИТЬ СЕРВЕР (НЕ ТОЧНАЯ ИНФОРМАЦИЯ, НО ЛУЧШЕ ЧЕМ НИЧЕГО)
 
 на ISP
+
 apt-get update -y && apt-get install git -y && git clone https://github.com/OOTSOSI/demo25 && cd demo25/ && chmod +x ISP.sh && sh ISP.sh
 
 Переход на hq-rtr и br-rtr
+
 там просто копируем файл через курсор и вставляем через терминал x.term
 
 после этого идем на серваки
+
 туда копируем строки до  перезагрузки сети systemctl restart network, вставляем, а потом используем команды
 
 apt-get update -y && apt-get install git -y && git clone https://github.com/OOTSOSI/demo25 && cd demo25/ && chmod +x HQ-SRV.sh && sh HQ-SRV.sh
