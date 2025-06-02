@@ -34,7 +34,11 @@ EOF
 
 sed -i 's/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1/g' /etc/net/sysctl.conf
 
-apt-get update && apt-get install -y firewalld 
+apt-get update && apt-get install -y firewalld
+
+apt-get update && apt-get install tzdata  
+timedatectl set-timezone Europe/Samara
+
 systemctl enable --now firewalld
 firewall-cmd --permanent --zone=public --add-interface=ens18
 firewall-cmd --permanent --zone=trusted --add-interface=ens19
