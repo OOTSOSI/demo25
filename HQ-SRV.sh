@@ -29,6 +29,9 @@ useradd sshuser -u 1010
 echo "sshuser:P@ssw0rd" | chpasswd
 usermod -aG wheel sshuser
 
+apt-get update && apt-get install tzdata  
+timedatectl set-timezone Europe/Samara
+
 touch /etc/sudoers
 cat <<EOF /etc/sudoers
 sshuser ALL=(ALL) NOPASSWD:ALL
