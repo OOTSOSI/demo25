@@ -28,6 +28,9 @@ systemctl restart sshd
 echo "default_realm = AU-TEAM.IRPO" | sudo tee -a /etc/krb5.conf
 echo "nameserver 192.168.0.30" | sudo tee -a /etc/resolv.conf
 
+apt-get update && apt-get install tzdata  
+timedatectl set-timezone Europe/Samara
+
 apt-get update && apt-get install -y gpupdate
 gpupdate-setup enable
 apt-get install -y admc
