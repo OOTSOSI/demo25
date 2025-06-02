@@ -26,8 +26,9 @@ cat <<EOF > /etc/resolv.conf
 nameserver 8.8.8.8
 nameserver 77.88.8.8
 EOF
-
+apt-get update && apt-get install tzdata  
 timedatectl set-timezone Europe/Samara
+
 systemctl restart network
 
 useradd sshuser -u 1010
